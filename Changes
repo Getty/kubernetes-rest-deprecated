@@ -1,6 +1,6 @@
 Revision history for Kubernetes-REST-Deprecated
 
-{{$NEXT}}
+1.105     2026-08-08 02:32:08Z
 
     First release. Permanent home for CPAN redirect ("tombstone") stub
     modules covering Kubernetes::REST modules that were genuinely removed
