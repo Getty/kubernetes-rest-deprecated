@@ -4,16 +4,7 @@ package Kubernetes::REST::Call::v1beta1::Authorization::GetAPIResources;
 use strict;
 use warnings;
 
-# Deliberately explicit $VERSION -- this dist's main module is versioned by
-# dzil (RewriteVersion, restricted to :MainModule via version_finder in
-# dist.ini), but tombstone sub-modules are NOT touched by it. This module
-# needs its own hard-coded, higher $VERSION so PAUSE indexes THIS module as
-# canonical for the name: PAUSE resolves each module name to whichever
-# shipped distribution carries the highest $VERSION, and Kubernetes-REST's
-# last CPAN release to ship this module (as a warning stub) was 1.104. Do
-# NOT "clean this up" to let dzil manage it -- doing so hands the PAUSE
-# index entry back to the stale, superseded Kubernetes-REST 1.104 release.
-our $VERSION = '1.200';
+our $VERSION = '1.105';
 
 die __PACKAGE__ . " has been removed. Kubernetes::REST's v1 rewrite replaced"
   . " the entire old per-endpoint v0 API (one Call class per operation) with"

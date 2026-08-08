@@ -32,9 +32,10 @@ Revision history for Kubernetes-REST-Deprecated
       rediscover and mistakenly tombstone it.
 
     * Mechanism
-        - Each tombstone carries an explicit $VERSION (1.200) strictly
-          higher than Kubernetes-REST 1.104, the last CPAN release that
-          shipped these module names (as warning stubs), so PAUSE indexes
-          this dist as canonical for the old names and `cpanm
+        - Every file in this dist versions normally and uniformly with
+          dzil (no version_finder override), starting at 1.105 -- the
+          next version after Kubernetes-REST 1.104, the last CPAN release
+          that shipped these module names (as warning stubs) -- so PAUSE
+          indexes this dist as canonical for the old names and `cpanm
           Old::Module::Name` installs the redirect instead of the stale
           pre-removal code.

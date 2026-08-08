@@ -111,23 +111,22 @@ shared one.
 
 Consequences shared by all tombstones, regardless of shape:
 
-- **Explicit, hand-set `$VERSION`.** This dist's own main module
-  (`lib/Kubernetes/REST/Deprecated.pm`) is versioned normally by dzil
-  (`RewriteVersion::Transitional` / `BumpVersionAfterRelease`, restricted
-  to `:MainModule` via `version_finder = :MainModule` in `dist.ini` --
-  **this restriction is load-bearing**: Kubernetes::REST's own convention
-  gives *every* sub-module a real, dzil-managed `$VERSION` that changes
-  every release, and if this dist inherited that behavior, dzil would
-  silently stomp every tombstone's hand-set version back down to this young
-  dist's own low version number on the next release, undoing the PAUSE
-  takeover. Each tombstone module is a deliberate, hand-maintained
-  exception: it carries its own `our $VERSION = '...';` literal, set once
-  and left alone, with an inline comment explaining why.
-- **The version must beat the last `Kubernetes-REST` release that shipped
-  the old name** (currently `1.104` for all 1012 in this dist, hence
-  `$VERSION = '1.200'`), found via `cpanm --info Kubernetes::REST` or
-  Kubernetes-REST's release git tags. Round up generously -- a full
-  minor/major bump, not `+0.000001`.
+- **No per-file version override.** `dist.ini` has no `version_finder`
+  restriction -- every file in this dist, main module and tombstones
+  alike, versions normally and uniformly with dzil
+  (`RewriteVersion::Transitional` / `BumpVersionAfterRelease`), exactly
+  like `Kubernetes::REST` itself. There is nothing to hand-maintain here:
+  the dist's version only ever increases, so once it starts past the
+  target it stays past it.
+- **The dist's version must beat the last `Kubernetes-REST` release that
+  shipped the old name** -- currently `1.104`, hence this dist starting at
+  `1.105` (found via `cpanm --info Kubernetes::REST` or Kubernetes-REST's
+  release git tags). Since `Kubernetes::REST` will never ship these names
+  again, there's no need to round up generously the way a genuinely
+  contested/still-shipping name would require -- the very next version is
+  enough. If a *future* tombstone batch targets a name Kubernetes-REST
+  shipped past whatever version this dist has reached by then, check that
+  before releasing and bump first if needed.
 - **The module does nothing else.** No POD-only doc stub, no re-export, no
   `use base` of the replacement, and critically **no `use Moo`** -- a
   tombstone must not register itself as a live (if empty) API object. Just
@@ -151,10 +150,11 @@ helper.
    to "CURRENT TOMBSTONES", update the grouped counts.
 5. **Update `README.md`'s tombstone summary** to match.
 6. **Add a `Changes` entry** under `{{$NEXT}}`.
-7. **Verify**: `prove -lr t/` green, `dzil build` clean, and spot-check that
-   the built tarball's `lib/` still has the hand-set `$VERSION` (not
-   rewritten by dzil) for at least one tombstone. Do not `dzil release`
-   without the maintainer's explicit go-ahead.
+7. **Verify**: `prove -lr t/` green, `dzil build` clean, and confirm the
+   dist's current version already exceeds the new tombstone's target
+   version (bump before release if not -- normal versioning applies here,
+   nothing special to check per-file). Do not `dzil release` without the
+   maintainer's explicit go-ahead.
 
 ## Boundary
 

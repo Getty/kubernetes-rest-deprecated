@@ -54,26 +54,31 @@ here:**
    `Kubernetes::REST::Call` usage in the live lib to confirm it's actually
    dead, not just discouraged.**
 
-## Version policy — deliberate exception
+## Version policy — normal dzil versioning, no per-file overrides
 
-`dist.ini` sets `version_finder = :MainModule` on `[@Author::GETTY]` --
-this is **required**, not incidental. `Kubernetes::REST`'s own convention
-gives *every* sub-module a real, dzil-managed `$VERSION` that changes on
-every release. If this dist inherited that default, `dzil release` would
-silently overwrite every tombstone's hand-set high `$VERSION` with this
-young distribution's own low version number, handing the PAUSE index entry
-straight back to the stale `Kubernetes-REST` release the tombstone was
-supposed to shadow. Only `lib/Kubernetes/REST/Deprecated.pm` (the dist's
-nominal main module) is dzil-versioned; every tombstone module carries a
-hand-written, hard-coded `our $VERSION = '1.200';` with an inline comment
-explaining why, and it must never be "normalized" away.
+`dist.ini` has **no** `version_finder` restriction. Every file --
+the main module and all 1012 tombstones alike -- versions normally and
+uniformly with the rest of the distribution
+(`RewriteVersion::Transitional` / `BumpVersionAfterRelease`), same as
+`Kubernetes::REST` itself. The starting version, `1.105`, was chosen for
+one reason: it's the next version after `Kubernetes-REST 1.104`, the last
+CPAN release that shipped any of these module names. Since
+`Kubernetes::REST` will never ship these names again (they're permanently
+gone, not just between releases) and this dist's version only ever
+increases, `1.105` stays ahead of that target for good. Full reasoning:
+`lib/Kubernetes/REST/Deprecated.pm`'s "VERSION POLICY" section.
+
+If a future tombstone needs a name whose last-shipped version exceeds
+whatever version this dist has reached by then, that's an ordinary
+version-ordering check before release -- not a reason to reintroduce
+per-file version overrides.
 
 ## Current tombstones
 
 1012 modules, all one shape: the old v0 API (per-endpoint `Call::*`
 classes + 10 helper modules), last shipped as a warning stub in
-`Kubernetes-REST` `1.104`; each tombstone here carries `$VERSION = '1.200'`
-to beat that. Full list: `lib/Kubernetes/REST/Deprecated.pm`'s POD (grouped
+`Kubernetes-REST` `1.104`; every file in this dist, including these,
+carries `$VERSION = '1.105'`. Full list: `lib/Kubernetes/REST/Deprecated.pm`'s POD (grouped
 summary) or `t/01-tombstones.t`'s `@deprecated_classes` array (exhaustive).
 
 No `V0Group`-family tombstones -- see "What's tombstoned here" above and
