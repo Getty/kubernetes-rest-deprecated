@@ -1,5 +1,5 @@
 package Kubernetes::REST::Deprecated;
-our $VERSION = '1.105';
+our $VERSION = '1.106';
 # ABSTRACT: Registry of CPAN redirect stubs for the removed Kubernetes::REST v0 API
 
 use strict;

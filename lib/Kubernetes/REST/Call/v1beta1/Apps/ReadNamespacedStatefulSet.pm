@@ -4,7 +4,7 @@ package Kubernetes::REST::Call::v1beta1::Apps::ReadNamespacedStatefulSet;
 use strict;
 use warnings;
 
-our $VERSION = '1.105';
+our $VERSION = '1.106';
 
 die __PACKAGE__ . " has been removed. Kubernetes::REST's v1 rewrite replaced"
   . " the entire old per-endpoint v0 API (one Call class per operation) with"
