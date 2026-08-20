@@ -1,6 +1,6 @@
 ---
 name: kubernetes-rest-deprecated
-description: "Kubernetes::REST::Deprecated -- permanent home for CPAN redirect (tombstone) stub modules covering Kubernetes::REST classes genuinely removed from the Kubernetes-REST distribution's own release history. Covers the PAUSE-takeover mechanism, how to tell a genuine orphan from a soft-deprecated-in-place or deprecated-in-name-only class, the audit method, and the procedure for adding a new tombstone."
+description: Use when a Kubernetes::REST class was removed and needs a CPAN tombstone, or when auditing Kubernetes-REST for orphaned module names.
 user-invocable: false
 allowed-tools: Read, Grep, Glob
 model: sonnet
