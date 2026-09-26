@@ -1,6 +1,6 @@
 # CLAUDE.md — Kubernetes::REST::Deprecated
 
-**MANDATORY: load the `perl-core` skill via the Skill tool before editing any
+**MANDATORY: load the `getty-perl-core` skill via the Skill tool before editing any
 Perl code in this repo.** It encodes Getty's house rules; the
 `kubernetes-rest-deprecated` skill
 (`.claude/skills/kubernetes-rest-deprecated/SKILL.md`) layers the
