@@ -1032,10 +1032,11 @@ my @deprecated_classes = (
   'Kubernetes::REST::Version',
 );
 
-plan tests => 2 * scalar @deprecated_classes;
 
 for my $mod (@deprecated_classes) {
   my $ok = eval "require $mod; 1";
   ok(!$ok, "$mod dies on load");
   like($@, qr/Kubernetes::REST\b/, "$mod die message points at Kubernetes::REST");
 }
+
+done_testing;
